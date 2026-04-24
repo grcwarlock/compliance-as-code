@@ -1,0 +1,19 @@
+{
+  "severity": "significant_deficiency",
+  "signals": {
+    "magnitude": "medium",
+    "likelihood": "reasonably_possible",
+    "compensating_controls": "partial",
+    "period_of_exposure": "one quarter (Q3 2025)",
+    "pervasiveness": "isolated",
+    "system": "General Ledger (NetSuite)"
+  },
+  "reasoning": "The User Access Review is the primary detective control for inappropriate accumulation of access in the General Ledger over time. With the Q3 review skipped, drift introduced during the period would not have been caught by this control. The compensating controls are partial: inline Segregation of Duties prevented toxic role combinations and the provisioning approval control operated effectively, but neither detects role-accumulation across the period the way a UAR does. The deficiency is isolated to one quarter and one system, the missed review was caught and remediated by a continuous-control health check, and no exploitation evidence is presented. These factors keep the classification below material weakness, but the affected system is the consolidation point for financial reporting, which justifies elevation above a simple control deficiency.",
+  "disclosure_implication": "Reportable to the audit committee.",
+  "remediation_urgency": "high",
+  "required_human_judgment": [
+    "Magnitude was assessed as medium without an explicit materiality threshold. Confirm with the SOX PMO whether GL access drift in one quarter could exceed the materiality threshold; if so, escalate toward material weakness.",
+    "Aggregation: confirm there are no other UAR or access-related deficiencies in the period for the GL service that would aggregate with this finding.",
+    "Confirm the remediation (backup reviewer logic) has been operating effectively in subsequent quarters before closing the POA&M item."
+  ]
+}

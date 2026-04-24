@@ -1,0 +1,44 @@
+[
+  {
+    "source": "aws-iam",
+    "event_type": "iam_user_snapshot",
+    "resource_type": "iam_user",
+    "resource_id": "arn:aws:iam::123456789012:user/jane",
+    "collected_at": "2026-04-17T14:02:11Z",
+    "control_hints": [
+      {"framework": "soc-2", "control_id": "CC6.1"},
+      {"framework": "iso-27001", "control_id": "A.8.5"},
+      {"framework": "nist-800-53", "control_id": "IA-2"}
+    ],
+    "payload": {
+      "user_name": "jane",
+      "user_id": "AIDAEXAMPLE0000000001",
+      "create_date": "2024-09-12T10:14:00Z",
+      "console_access": true,
+      "mfa_enabled": true,
+      "mfa_device_count": 1,
+      "access_key_count": 0
+    }
+  },
+  {
+    "source": "aws-iam",
+    "event_type": "iam_user_snapshot",
+    "resource_type": "iam_user",
+    "resource_id": "arn:aws:iam::123456789012:user/ci-bot",
+    "collected_at": "2026-04-17T14:02:11Z",
+    "control_hints": [
+      {"framework": "soc-2", "control_id": "CC6.1"},
+      {"framework": "iso-27001", "control_id": "A.8.5"},
+      {"framework": "nist-800-53", "control_id": "IA-2"}
+    ],
+    "payload": {
+      "user_name": "ci-bot",
+      "user_id": "AIDAEXAMPLE0000000002",
+      "create_date": "2023-02-04T08:00:00Z",
+      "console_access": false,
+      "mfa_enabled": false,
+      "mfa_device_count": 0,
+      "access_key_count": 1
+    }
+  }
+]

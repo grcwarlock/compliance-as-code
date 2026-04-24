@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/compliance-as-code/connectors/schema/evidence.schema.json",
+  "title": "Evidence Record",
+  "description": "Shape of a single evidence record emitted by a compliance-as-code connector. A connector run may emit either one record (object) or many (array of objects).",
+  "type": "object",
+  "required": [
+    "source",
+    "event_type",
+    "resource_type",
+    "resource_id",
+    "collected_at",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "source": {
+      "type": "string",
+      "description": "The connector that produced this record (e.g., 'aws-iam', 'github', 'okta'). Stable across runs.",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Logical event category that downstream agents and policies key on (e.g., 'iam_user_snapshot', 'branch_protection_rule', 'mfa_factor').",
+      "minLength": 1
+    },
+    "resource_type": {
+      "type": "string",
+      "description": "Logical resource type (e.g., 'iam_user', 'repository', 'identity_provider').",
+      "minLength": 1
+    },
+    "resource_id": {
+      "type": "string",
+      "description": "Stable identifier for the resource within its source. Should be enough to look the resource up in the source system.",
+      "minLength": 1
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp recording when the connector collected this record."
+    },
+    "control_hints": {
+      "type": "array",
+      "description": "Optional list of framework control IDs this record is plausibly evidence for. Hints only; downstream mappers make the authoritative call.",
+      "items": {
+        "type": "object",
+        "required": ["framework", "control_id"],
+        "additionalProperties": false,
+        "properties": {
+          "framework": {
+            "type": "string",
+            "description": "Framework identifier (e.g., 'soc-2', 'iso-27001', 'nist-800-53')."
+          },
+          "control_id": {
+            "type": "string",
+            "description": "Control identifier within the framework (e.g., 'CC6.1', 'A.5.15', 'AC-2(3)')."
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "description": "Connector-specific structured data. Flat or nested. Must not contain personally identifying information; redact at the connector boundary."
+    }
+  }
+}

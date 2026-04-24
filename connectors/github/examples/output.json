@@ -1,0 +1,58 @@
+[
+  {
+    "source": "github",
+    "event_type": "branch_protection_rule",
+    "resource_type": "repository",
+    "resource_id": "github://example-org/payments-service",
+    "collected_at": "2026-04-17T14:02:11Z",
+    "control_hints": [
+      {"framework": "soc-2", "control_id": "CC8.1"},
+      {"framework": "iso-27001", "control_id": "A.8.32"},
+      {"framework": "nist-800-53", "control_id": "CM-3"}
+    ],
+    "payload": {
+      "repo_full_name": "example-org/payments-service",
+      "default_branch": "main",
+      "protection_enabled": true,
+      "required_status_checks": ["ci/test", "ci/lint", "security/sast"],
+      "required_review_count": 2,
+      "dismiss_stale_reviews": true,
+      "enforce_admins": true
+    }
+  },
+  {
+    "source": "github",
+    "event_type": "branch_protection_rule",
+    "resource_type": "repository",
+    "resource_id": "github://example-org/marketing-site",
+    "collected_at": "2026-04-17T14:02:11Z",
+    "control_hints": [
+      {"framework": "soc-2", "control_id": "CC8.1"},
+      {"framework": "iso-27001", "control_id": "A.8.32"},
+      {"framework": "nist-800-53", "control_id": "CM-3"}
+    ],
+    "payload": {
+      "repo_full_name": "example-org/marketing-site",
+      "default_branch": "main",
+      "protection_enabled": false
+    }
+  },
+  {
+    "source": "github",
+    "event_type": "org_admin_snapshot",
+    "resource_type": "user",
+    "resource_id": "github://example-org/jane",
+    "collected_at": "2026-04-17T14:02:11Z",
+    "control_hints": [
+      {"framework": "soc-2", "control_id": "CC6.1"},
+      {"framework": "iso-27001", "control_id": "A.8.2"},
+      {"framework": "nist-800-53", "control_id": "AC-6"}
+    ],
+    "payload": {
+      "org": "example-org",
+      "login": "jane",
+      "user_id": 1234567,
+      "two_factor_authentication": true
+    }
+  }
+]

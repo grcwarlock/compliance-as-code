@@ -1,0 +1,80 @@
+{
+  "assessment-results": {
+    "uuid": "b1f3f1c2-5d3c-5c1c-8d1a-2c0d9f8a3c11",
+    "metadata": {
+      "title": "my-saas continuous assessment — 2026-Q1",
+      "last-modified": "2026-04-17T14:02:11Z",
+      "version": "1.0.0",
+      "oscal-version": "1.1.2",
+      "remarks": "UUIDs generated with UUID5 using namespace 00000000-0000-0000-0000-000000000000."
+    },
+    "import-ap": {
+      "href": "#pending",
+      "remarks": "Assessment Plan not yet available; import-ap placeholder pending AP emission."
+    },
+    "results": [
+      {
+        "uuid": "f0b2e0a3-1c2a-51a9-a5a7-8c0d9f8a3c22",
+        "title": "Q1 2026 continuous assessment",
+        "start": "2026-01-01T00:00:00Z",
+        "end": "2026-03-31T23:59:59Z",
+        "reviewed-controls": {
+          "control-selections": [
+            {
+              "include-controls": [
+                { "control-id": "ac-2" },
+                { "control-id": "ac-2.3" },
+                { "control-id": "au-6.3" }
+              ]
+            }
+          ]
+        },
+        "findings": [
+          {
+            "uuid": "9e1108a1-4d13-5f12-9c3b-7f0e2d8b1c33",
+            "title": "AC-2: Q3 2025 UAR for GL service was not performed",
+            "description": "Quarterly User Access Review for the GL service in Q3 2025 was not executed. Root cause: primary reviewer declined the calendar invite and no backup reviewer was assigned. Q4 2025 and Q1 2026 reviews were performed on time.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "ac-2",
+              "status": { "state": "not-satisfied" }
+            },
+            "related-observations": [
+              { "observation-uuid": "7a22d1b0-8e25-5a34-b6c4-1d2e3f4a5b44" }
+            ]
+          },
+          {
+            "uuid": "3c4e5f6a-7b8c-5d9e-0f1a-2b3c4d5e6f55",
+            "title": "AC-2(3): automated inactive-account disable operated effectively",
+            "description": "Automated disable job ran on schedule throughout the period. Population: 1,412 accounts at period start, 17 disabled for inactivity, 0 exceptions.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "ac-2.3",
+              "status": { "state": "satisfied" }
+            }
+          },
+          {
+            "uuid": "5f6a7b8c-9d0e-51f2-a3b4-c5d6e7f8a966",
+            "title": "AU-6(3): audit record correlation operated effectively",
+            "description": "SIEM correlation rules active across 14 log sources throughout the period; 2,431 correlation-triggered alerts, all triaged within SLA.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "au-6.3",
+              "status": { "state": "satisfied" }
+            }
+          }
+        ],
+        "observations": [
+          {
+            "uuid": "7a22d1b0-8e25-5a34-b6c4-1d2e3f4a5b44",
+            "title": "Missing UAR evidence for GL service in Q3 2025",
+            "methods": ["EXAMINE"],
+            "types": ["finding"],
+            "description": "Continuous-control health check detected the missed UAR in December 2025 after a pattern of declined reviewer calendar invites. Remediation ticket opened 2025-12-14, closed 2026-01-08 with backup reviewer logic deployed.",
+            "collected": "2025-12-14T00:00:00Z"
+          }
+        ]
+      }
+    ]
+  }
+}
