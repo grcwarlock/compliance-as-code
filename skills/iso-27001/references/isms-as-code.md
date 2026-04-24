@@ -22,7 +22,7 @@ A quarterly job compares the scope declaration to the actual asset inventory. De
 
 **Traditional:** a signed information security policy and an accountability matrix in a slide deck.
 
-**As code:** 
+**As code:**
 
 - Policy repository with every policy as markdown, signed by commit + PR approval from the CISO (or equivalent). Signature is the git commit, not a signature page.
 - RACI entries as YAML, queryable. New services register themselves and inherit RACI from service templates.

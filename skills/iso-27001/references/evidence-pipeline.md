@@ -4,7 +4,7 @@ An evidence pipeline for ISO 27001 turns operational events into Annex A-tagged 
 
 ## Pipeline stages
 
-```
+```text
 sources → normalizers → evidence store → control mappers → SoA view
                                        ↘ exception detectors → tickets
 ```
@@ -80,7 +80,7 @@ Mappers produce:
 
 The Statement of Applicability (SoA) is a join, not a document:
 
-```
+```text
 annex_a_controls (93 rows)
   × applicability decisions (from risk register / scope)
   × evidence_pointers (from mapper output)

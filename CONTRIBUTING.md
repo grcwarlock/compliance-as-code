@@ -21,7 +21,7 @@ Other rules:
 
 ## Skill structure
 
-```
+```text
 skills/<framework>/
   SKILL.md                  # frontmatter + short body, links to references
   examples/example.md       # one walkthrough end-to-end
@@ -33,7 +33,7 @@ Required frontmatter fields: `name`, `description`, `when_to_use`. The `name` mu
 
 ## Agent structure
 
-```
+```text
 agents/<agent-name>/
   AGENT.md                  # frontmatter: name, description, when_to_use, tools (optional)
   prompt.md                 # the system prompt
@@ -53,7 +53,7 @@ Agents must be:
 
 ## Connector structure
 
-```
+```text
 connectors/<source>/
   README.md                 # what it does, what it requires, scopes/IAM minimums
   connector.py              # standalone CLI, ~100-200 lines

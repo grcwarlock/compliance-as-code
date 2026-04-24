@@ -4,7 +4,7 @@ Patterns the agent uses when translating controls to Rego.
 
 ## Package naming
 
-```
+```text
 package compliance.<framework>.<control_id_normalized>
 ```
 

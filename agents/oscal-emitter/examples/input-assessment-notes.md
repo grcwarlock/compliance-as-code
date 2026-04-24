@@ -2,14 +2,14 @@
 
 my-saas (SaaS B2B product, FedRAMP Moderate baseline, AWS-hosted)
 
-# Assessment context
+## Assessment context
 
 - Assessor: internal audit team
 - Period: 2026-01-01 through 2026-03-31
 - Basis: continuous controls plus spot-check sampling
 - OSCAL model: assessment-results
 
-# Findings
+## Findings
 
 ## AC-2 — Account Management
 
@@ -37,6 +37,6 @@ my-saas (SaaS B2B product, FedRAMP Moderate baseline, AWS-hosted)
 
 **Observation:** SIEM correlation rules active across 14 log sources throughout the period. Rule set reviewed quarterly. Population of correlation-triggered alerts: 2,431; all triaged within SLA.
 
-# Observations
+## Observations
 
 - The UAR failure in Q3 2025 was caught by internal continuous-control health check in December 2025 after the reviewer's calendar-decline pattern triggered an alert. Remediation ticket opened 2025-12-14, completed 2026-01-08 with backup reviewer logic deployed.

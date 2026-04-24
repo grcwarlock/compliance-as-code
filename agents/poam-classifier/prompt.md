@@ -7,7 +7,7 @@ Input format:
 
 Output format: strict JSON, no prose wrapper.
 
-```
+```text
 {
   "severity": "deficiency" | "significant_deficiency" | "material_weakness",
   "signals": {

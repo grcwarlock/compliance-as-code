@@ -97,15 +97,15 @@ Connectors are optional. Skills and agents work without any connector installed.
 
 Each skill declares a trigger in its frontmatter `description`. A compatible runtime loads the skill when your prompt matches.
 
-```
+```text
 What evidence does an auditor expect for SOC 2 CC6.1, and how would I make it continuous?
 ```
 
-```
+```text
 Walk me through scoping ISO 27001 Annex A controls for a 50-person SaaS that already has SOC 2.
 ```
 
-```
+```text
 Map our AWS IAM controls to NIST SP 800-53 Rev. 5 AC family at the moderate baseline.
 ```
 
@@ -129,7 +129,7 @@ No specific provider's API key is required to use this repo. Use whatever model 
 
 A skill is a directory containing a `SKILL.md` file with YAML frontmatter — at minimum `name`, `description`, and `when_to_use`. Compatible agent runtimes auto-discover skills in a configured directory and activate them when conversation matches the description. The `SKILL.md` stays short; longer reference material (control lists, templates, checklists) lives in `references/` and gets loaded on demand.
 
-```
+```text
 skills/soc-2/
   SKILL.md              # frontmatter + short body, links to references
   examples/example.md

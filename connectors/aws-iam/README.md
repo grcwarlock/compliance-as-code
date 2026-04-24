@@ -36,7 +36,7 @@ Sample shape (see `examples/output.json` for a complete example):
 
 Read-only IAM permissions:
 
-```
+```text
 iam:ListUsers
 iam:ListMFADevices
 iam:GetLoginProfile

@@ -8,7 +8,7 @@ Use **UUID5** (name-based) with a fixed namespace.
 
 Pick one UUID once; use it for all OSCAL emissions in the project. Pin it in a comment in the emitter.
 
-```
+```text
 00000000-0000-0000-0000-000000000000
 ```
 

@@ -2,7 +2,7 @@
 
 Quarterly User Access Review for the General Ledger application in Q3 2025 was not performed. The reviewer assigned to the GL service declined the calendar invite for the review session and no backup reviewer was scheduled. The Q4 2025 and Q1 2026 reviews were performed on time, with full population coverage and remediation of two flagged items.
 
-# Context
+## Context
 
 - **System affected:** General Ledger (NetSuite, primary financial reporting system)
 - **Period of exposure:** one quarter (Q3 2025)
@@ -14,6 +14,6 @@ Quarterly User Access Review for the General Ledger application in Q3 2025 was n
 - **Magnitude indicator:** GL is the consolidation point for financial reporting.
 - **Detection mechanism:** continuous-control health check flagged the missed review in December 2025; remediation ticket opened 2025-12-14.
 
-# Materiality threshold
+## Materiality threshold
 
 Not provided in this input.
