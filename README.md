@@ -192,7 +192,7 @@ PRs welcome — new frameworks, improved references, better agents, more connect
 | Version | Status | Contents |
 |---|---|---|
 | **v0.1** | **shipped** | SOC 2, ISO 27001, NIST 800-53 skills · `opa-policy-author`, `oscal-emitter`, `poam-classifier` agents · AWS IAM, GitHub, Okta connectors · offline eval harness |
-| **v0.2** | planned | PCI DSS, HIPAA, GDPR, EU AI Act skills · additional connectors (GCP, Azure, Snowflake) · `claude-code-plugin.json` · end-to-end integration examples · `--with-llm` mode in the eval harness |
+| **v0.2** | planned | PCI DSS, HIPAA, GDPR, EU AI Act skills · additional connectors (GCP, Azure, Snowflake) · plugin manifest for one-command install via compatible agent runtimes · end-to-end integration examples · `--with-llm` mode in the eval harness |
 | **v0.3** | planned | Cross-framework crosswalk skill · real benchmark numbers for agent output quality across providers |
 
 ---
