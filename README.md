@@ -1,101 +1,122 @@
+<div align="center">
+
 # compliance-as-code
 
-> Open-source agent skills, agents, and reference connectors for compliance engineers. SOC 2, ISO 27001, NIST 800-53 — written for the people instrumenting the systems, not the people writing the report.
+**Engineer-voice agent skills, agents, and reference connectors for compliance work.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Frameworks](https://img.shields.io/badge/frameworks-3-0A1F44)](#whats-inside)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+*For the people instrumenting the systems — not the people writing the report.*
 
-## Why this exists
+**SOC 2** · **ISO 27001** · **NIST 800-53**
 
-Most compliance content is written for auditors. It tells you what an auditor expects to see, what evidence to collect, what the control IDs mean. That is useful — once a year.
+[![CI](https://github.com/grcwarlock/compliance-as-code/actions/workflows/ci.yml/badge.svg)](https://github.com/grcwarlock/compliance-as-code/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/grcwarlock/compliance-as-code?color=blue&label=release)](https://github.com/grcwarlock/compliance-as-code/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/grcwarlock/compliance-as-code?color=informational)](https://github.com/grcwarlock/compliance-as-code/commits/main)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-The other 364 days, someone has to actually instrument the systems, write the policies, emit the artifacts, and keep it all running. That is an engineering job, and engineering jobs need engineering tools.
+</div>
 
-This repo is a small kit for that job:
+---
 
-- **Skills** that brief any compatible agent runtime on a framework from an engineer's perspective — event types, evidence shapes, what a continuous control looks like, how to design for "no quarterly screenshot."
-- **Agents** that produce concrete artifacts: Rego policies, OSCAL JSON, PCAOB severity classifications. Pure input → output. No databases, no daemons, no cloud credentials at runtime.
-- **Optional connectors** that emit evidence records from real systems (AWS IAM, GitHub, Okta) using a shared JSON schema. Skills and agents work without these; they are reference implementations, not a platform.
-
-Vendor-neutral, MIT-licensed, model-agnostic, runtime-agnostic.
-
-## What's inside
-
-### Skills
-
-| Skill | Activates on | SKILL.md |
-|---|---|---|
-| `soc-2` | SOC 2 TSC implementation, evidence-as-code, continuous controls, instrumenting for audit | [view](skills/soc-2/SKILL.md) |
-| `iso-27001` | ISMS, Annex A engineering view, risk register schemas, evidence pipelines | [view](skills/iso-27001/SKILL.md) |
-| `nist-800-53` | Control families, baselines and tailoring, control inheritance, OSCAL emission | [view](skills/nist-800-53/SKILL.md) |
-
-### Agents
-
-| Agent | Input → Output | AGENT.md |
-|---|---|---|
-| `opa-policy-author` | Control description + evidence shape → Rego policy with deny rules | [view](agents/opa-policy-author/AGENT.md) |
-| `oscal-emitter` | Assessment notes (markdown) → OSCAL Assessment Results JSON | [view](agents/oscal-emitter/AGENT.md) |
-| `poam-classifier` | Deficiency description + context → PCAOB severity (deficiency / SD / MW) with reasoning | [view](agents/poam-classifier/AGENT.md) |
-
-### Optional connectors
-
-| Connector | Emits | README |
-|---|---|---|
-| `aws-iam` | IAM user snapshots with MFA / console / access-key state | [view](connectors/aws-iam/README.md) |
-| `github` | Branch protection rules, org admin membership | [view](connectors/github/README.md) |
-| `okta` | User MFA factors, privileged group membership | [view](connectors/okta/README.md) |
-
-Each connector is a single Python script that emits records conforming to [`connectors/schema/evidence.schema.json`](connectors/schema/evidence.schema.json). Anyone can write one. Three reference implementations ship with the repo.
-
-## Install
-
-### Skills
+## Quick start
 
 ```bash
-git clone https://github.com/<your-handle>/compliance-as-code.git
+git clone https://github.com/grcwarlock/compliance-as-code.git
 cd compliance-as-code
 ./scripts/install.sh --target /path/to/your/agent/skills/dir
 ```
 
-The script symlinks each skill (and each agent, when present) into the target directory. Set `--target` to wherever your agent runtime expects to discover skills. Use `--dry-run` to preview, `--force` to overwrite existing symlinks.
+Restart your agent runtime. Done.
 
-To copy one skill manually instead:
+> **Want to use an agent outside any runtime?**
+>
+> ```bash
+> pip install -r scripts/requirements-runner.txt
+> LLM_PROVIDER=openai LLM_MODEL=gpt-4o \
+>   python scripts/run-agent.py oscal-emitter \
+>     --input agents/oscal-emitter/examples/input-assessment-notes.md
+> ```
+>
+> Works with any LLM LiteLLM supports — OpenAI, Ollama (local), Gemini, Mistral, Bedrock, Vertex AI, Groq, Cohere, and more. No specific provider's API key is required to use this repo.
 
-```bash
-cp -r skills/soc-2 /path/to/your/agent/skills/dir/soc-2
+---
+
+## What this is
+
+A small, focused kit that turns any LLM-aware terminal into a competent compliance collaborator — for three frameworks engineers actually ship against.
+
+|  | This repo | Most compliance content |
+|---|---|---|
+| **Audience** | People instrumenting systems | Auditors preparing reports |
+| **Voice** | Event types, evidence shapes, continuous controls | Policies, committees, "the auditor expects..." |
+| **Install** | `./install.sh --target <path>` | PDF in a shared drive |
+| **Output** | Rego policies, OSCAL JSON, severity calls | Screenshots in a PowerPoint |
+| **License** | MIT | Usually none |
+| **Runtime lock-in** | None | Usually one vendor |
+
+---
+
+## How it flows
+
+```mermaid
+flowchart LR
+    subgraph Inputs
+      direction TB
+      A[Skills<br/><sub>framework knowledge<br/>loaded on demand</sub>]
+      B[Evidence<br/><sub>optional connectors<br/>AWS · GitHub · Okta</sub>]
+    end
+    A --> C[Agents<br/><sub>pure input → output</sub>]
+    B --> C
+    C --> D[Artifacts<br/><sub>Rego · OSCAL JSON<br/>severity calls</sub>]
 ```
 
-After install, restart your agent runtime so it picks up the new skills.
+---
 
-### Agents
+## What's inside
 
-Same install pattern as skills (the install script symlinks `agents/<name>/` into your `--target` directory). Outside an agent runtime, use the provider-neutral runner:
+### Skills — framework knowledge that loads on demand
 
-```bash
-pip install -r scripts/requirements-runner.txt
-LLM_PROVIDER=openai LLM_MODEL=gpt-4o \
-  python scripts/run-agent.py oscal-emitter \
-    --input agents/oscal-emitter/examples/input-assessment-notes.md \
-    --output assessment-results.json
-```
+| Skill | Core knowledge |
+|---|---|
+| [`soc-2`](skills/soc-2/SKILL.md) | Trust Services Criteria engineer's view · evidence-as-code · continuous controls · Type 1 vs Type 2 |
+| [`iso-27001`](skills/iso-27001/SKILL.md) | Annex A 2022 · ISMS-as-code · risk register schema · evidence pipelines |
+| [`nist-800-53`](skills/nist-800-53/SKILL.md) | 20 control families · baselines and tailoring · inheritance · OSCAL emission |
 
-### Connectors
+Each ships a short `SKILL.md` plus four load-on-demand reference docs and one worked example.
 
-Standalone Python scripts.
+### Agents — prompts that produce concrete artifacts
 
-```bash
-pip install -r connectors/aws-iam/requirements.txt
-python connectors/aws-iam/connector.py --output evidence-aws.json
-```
+| Agent | Input → Output |
+|---|---|
+| [`opa-policy-author`](agents/opa-policy-author/AGENT.md) | Control description + evidence shape → Rego policy with deny rules |
+| [`oscal-emitter`](agents/oscal-emitter/AGENT.md) | Markdown assessment notes → OSCAL Assessment Results JSON |
+| [`poam-classifier`](agents/poam-classifier/AGENT.md) | Deficiency + context → PCAOB severity (deficiency / SD / MW) with reasoning |
 
-Connectors are optional. Skills and agents work without any connector installed. Each connector's README documents its required scopes / IAM minimums.
+All three are pure input → output, offline-verifiable, and work with any LLM provider.
 
-## Usage
+### Connectors — optional, standalone evidence emitters
 
-### In an agent runtime
+| Connector | Emits | SDK |
+|---|---|---|
+| [`aws-iam`](connectors/aws-iam/README.md) | IAM user snapshots · MFA · console · access-key state | boto3 |
+| [`github`](connectors/github/README.md) | Branch protection rules · org admin membership | PyGithub |
+| [`okta`](connectors/okta/README.md) | User MFA factors · privileged group membership | requests |
 
-Each skill declares a trigger in its frontmatter `description`. A compatible runtime loads the skill when your prompt matches.
+Single-file Python scripts, read-only, least-privilege. **Skills and agents work without any connector installed.** Each connector's README documents its required scopes and IAM minimums.
+
+---
+
+## Why this exists
+
+Most compliance content is written for auditors. It tells you what an auditor expects to see, what evidence to collect, what the control IDs mean. Useful — **once a year**.
+
+The other 364 days, someone has to actually instrument the systems, write the policies, emit the artifacts, and keep it all running. That is an engineering job. Engineering jobs need engineering tools.
+
+---
+
+## Usage examples
+
+Prompts that activate a skill:
 
 ```text
 What evidence does an auditor expect for SOC 2 CC6.1, and how would I make it continuous?
@@ -109,25 +130,20 @@ Walk me through scoping ISO 27001 Annex A controls for a 50-person SaaS that alr
 Map our AWS IAM controls to NIST SP 800-53 Rev. 5 AC family at the moderate baseline.
 ```
 
-When a skill is active, the runtime cites specific control IDs, pulls in templates from the skill's `references/` folder on demand, and flags anything that requires a licensed auditor or lawyer.
-
-### Model-agnostic
-
-Skills are pure markdown. They work in any agent runtime that understands the agent skills frontmatter format described in [How agent skills work](#how-agent-skills-work).
-
-Agents (when shipped) ship as the same markdown plus a small Python runner that uses [LiteLLM](https://github.com/BerriAI/litellm) for provider abstraction:
+Running an agent directly:
 
 ```bash
 LLM_PROVIDER=openai LLM_MODEL=gpt-4o            python scripts/run-agent.py oscal-emitter --input notes.md
-LLM_PROVIDER=ollama LLM_MODEL=llama3            python scripts/run-agent.py opa-policy-author --control cc6-1.md
+LLM_PROVIDER=ollama LLM_MODEL=llama3            python scripts/run-agent.py opa-policy-author --input control.md
 LLM_PROVIDER=gemini LLM_MODEL=gemini-2.0-flash  python scripts/run-agent.py poam-classifier --input deficiency.md
 ```
 
-No specific provider's API key is required to use this repo. Use whatever model you have credentials for, or run local with Ollama.
+---
 
-## How agent skills work
+<details>
+<summary><strong>How agent skills work (click to expand)</strong></summary>
 
-A skill is a directory containing a `SKILL.md` file with YAML frontmatter — at minimum `name`, `description`, and `when_to_use`. Compatible agent runtimes auto-discover skills in a configured directory and activate them when conversation matches the description. The `SKILL.md` stays short; longer reference material (control lists, templates, checklists) lives in `references/` and gets loaded on demand.
+A skill is a directory containing a `SKILL.md` file with YAML frontmatter — at minimum `name`, `description`, and `when_to_use`. Compatible agent runtimes auto-discover skills in a configured directory and activate them when conversation matches the description. The `SKILL.md` stays short; longer reference material lives in `references/` and gets loaded on demand.
 
 ```text
 skills/soc-2/
@@ -142,26 +158,51 @@ skills/soc-2/
 
 Agents follow the same shape (`AGENT.md` instead of `SKILL.md`, plus a `prompt.md`). This file format is vendor-neutral; any agent runtime that respects the frontmatter contract can load these skills.
 
+</details>
+
+<details>
+<summary><strong>What this repo will not become (click to expand)</strong></summary>
+
+Scope discipline matters more than scope expansion. This repo will not add:
+
+- A connector framework, plugin system, or shared base class. Each connector is a single independent file by design.
+- Agents that require a database, persistent state, or live cloud credentials at runtime.
+- Skills that promote a specific commercial product.
+- A web UI, dashboard, scheduler, or orchestrator — those are a different product.
+- Reference docs lifted from copyrighted material. Cite the standard; write fresh prose.
+
+If you need those things, fork and build them. This repo stays a kit.
+
+</details>
+
+---
+
 ## Contributing
 
-PRs welcome — new frameworks, improved references, better agents, more connectors, bug fixes. Before opening a PR:
+PRs welcome — new frameworks, improved references, better agents, more connectors, bug fixes.
 
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the authoring style guide.
-2. Run `python scripts/validate.py` to catch frontmatter, link, and schema errors.
-3. Use the issue templates if you want a new framework, agent, or connector before building it.
+1. Read [CONTRIBUTING.md](CONTRIBUTING.md).
+2. Run `python scripts/validate.py` and `python scripts/eval.py`.
+3. Open the PR.
+
+---
 
 ## Roadmap
 
-- **v0.1 (current)** — Three skills (SOC 2, ISO 27001, NIST 800-53) with full reference docs. Three agents (`opa-policy-author`, `oscal-emitter`, `poam-classifier`) with offline eval harness. Three reference connectors (AWS IAM, GitHub, Okta).
-- **v0.2** — Additional frameworks (PCI DSS, HIPAA, GDPR, EU AI Act). Additional connectors (GCP, Azure, Snowflake). End-to-end integration examples piping connector output into agents. `--with-llm` mode in the eval harness.
-- **v0.3** — Cross-framework crosswalk skill. Real eval benchmark numbers for agent output quality across providers.
+| Version | Status | Contents |
+|---|---|---|
+| **v0.1** | **shipped** | SOC 2, ISO 27001, NIST 800-53 skills · `opa-policy-author`, `oscal-emitter`, `poam-classifier` agents · AWS IAM, GitHub, Okta connectors · offline eval harness |
+| **v0.2** | planned | PCI DSS, HIPAA, GDPR, EU AI Act skills · additional connectors (GCP, Azure, Snowflake) · `claude-code-plugin.json` · end-to-end integration examples · `--with-llm` mode in the eval harness |
+| **v0.3** | planned | Cross-framework crosswalk skill · real benchmark numbers for agent output quality across providers |
+
+---
 
 ## License
 
-MIT &copy; 2026. See [LICENSE](LICENSE).
+MIT &copy; 2026. See [LICENSE](LICENSE). Community contributions are licensed under MIT by their authors.
 
-Community contributions are licensed under MIT by their authors.
+<div align="center">
 
-## Acknowledgements
+Built on the public work of **NIST** · **ISO/IEC** · **AICPA** · **Open Policy Agent** · **OSCAL working group**.
 
-Built on the public work of NIST, ISO/IEC, AICPA, the Open Policy Agent project, and the OSCAL working group.
+</div>
